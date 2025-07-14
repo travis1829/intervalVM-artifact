@@ -1,0 +1,12 @@
+*.out
+*.pdf
+
+linux-6.8
+linux-6.8-interval_vm
+
+apache/httpd-2.4.62
+apache/wrk
+apache/results/*.csv
+lockstat/results/*.csv
+metis/results/*.csv
+psearchy/results/*.csv
