@@ -19,9 +19,12 @@ top_layout = 0.975
 left_layout = 0.12
 
 version_info = {
-    "apache_6.8.0-debug": {"label": "Apache (single server)", "linestyle": "solid", "marker": "x", "color": "red"},	
-    "metis_6.8.0-debug": {"label": "Metis", "linestyle": "solid", "marker": "+", "color": "purple"},
-    "psearchy_6.8.0-debug": {"label": "Psearchy", "linestyle": "solid", "marker": "2", "color": "orange"},
+    # "apache_6.8.0-debug": {"label": "Apache (single server)", "linestyle": "solid", "marker": "x", "color": "red"},	
+    # "metis_6.8.0-debug": {"label": "Metis", "linestyle": "solid", "marker": "+", "color": "purple"},
+    # "psearchy_6.8.0-debug": {"label": "Psearchy", "linestyle": "solid", "marker": "2", "color": "orange"},
+    "apache_6.8.0-interval-vm-debug+": {"label": "Apache (single server)", "linestyle": "solid", "marker": "x", "color": "red"},	
+    "metis_6.8.0-interval-vm-debug+": {"label": "Metis", "linestyle": "solid", "marker": "+", "color": "purple"},
+    "psearchy_6.8.0-interval-vm-debug+": {"label": "Psearchy", "linestyle": "solid", "marker": "2", "color": "orange"},
 }
 
 
@@ -109,7 +112,7 @@ def draw(output_name, data, cpu_count=48):
             idx = labels.index(label)
             ordered_handles.append(handles[idx])
             ordered_labels.append(labels[idx])
-#     plt.legend(ordered_handles, ordered_labels, fontsize=label_size, title_fontsize=label_size-2)
+    plt.legend(ordered_handles, ordered_labels, fontsize=label_size, title_fontsize=label_size-2)
 
     # Add a shaded region if core count exceeds cpu_count
     # if max(df["threads"].max() for df in data.values()) >= cpu_count:
