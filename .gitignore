@@ -15,4 +15,8 @@ lmbench/results/x86_64-linux-gnu
 lmbench/src/webpage-lm
 lockstat/results/*.csv
 metis/results/*.csv
+microbench/results/f_mbench/*.csv
+microbench/results/f_mfmbench/*.csv
+microbench/results/mbench/*.csv
+microbench/results/mfmbench/*.csv
 psearchy/results/*.csv

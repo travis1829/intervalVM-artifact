@@ -11,6 +11,8 @@ make clean -C ../lmbench
 
 make clean -C ../metis
 
+make clean -C ../microbench
+
 make clean -C ../psearchy
 rm -rf ../psearchy/linux-6.8
 rm -f ../psearchy/linux-6.8-files.txt

@@ -19,4 +19,5 @@ fi
 ./install-ds_benchmark.sh
 ./install-lmbench.sh
 ./install-metis.sh
+./install-microbench.sh
 ./install-psearchy.sh
