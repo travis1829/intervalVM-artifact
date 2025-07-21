@@ -16,5 +16,6 @@ fi
 if [ ! -d "/usr/local/apache2" ]; then
     ./install-apache.sh
 fi
+./install-ds_benchmark.sh
 ./install-metis.sh
 ./install-psearchy.sh

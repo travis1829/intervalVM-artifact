@@ -2,6 +2,11 @@ sudo rm -rf ../apache/httpd-2.4.62
 rm -rf ../apache/wrk
 sudo rm -rf /usr/local/apache2
 
+if [ -d ../ds_benchmark/jemalloc ]; then
+    # sudo make uninstall -C ../ds_benchmark/jemalloc
+    rm -rf ../ds_benchmark/jemalloc
+fi
+
 make clean -C ../metis
 
 make clean -C ../psearchy
