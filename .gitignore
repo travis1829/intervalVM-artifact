@@ -10,6 +10,9 @@ apache/results/*.csv
 ds_benchmark/results/alloc/*.csv
 ds_benchmark/results/find/*.csv
 ds_benchmark/results/remove/*.csv
+lmbench/bin
+lmbench/results/x86_64-linux-gnu
+lmbench/src/webpage-lm
 lockstat/results/*.csv
 metis/results/*.csv
 psearchy/results/*.csv

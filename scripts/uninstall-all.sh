@@ -7,6 +7,8 @@ if [ -d ../ds_benchmark/jemalloc ]; then
     rm -rf ../ds_benchmark/jemalloc
 fi
 
+make clean -C ../lmbench
+
 make clean -C ../metis
 
 make clean -C ../psearchy
