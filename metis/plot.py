@@ -31,7 +31,8 @@ def load_csv_files():
     data = {}
     for file in glob.glob("*.csv"):
         kernel_version = file.split(".csv")[0]  # Use the filename (kernel version) as the key
-        data[kernel_version] = pd.read_csv(file)
+        if kernel_version in version_info:      # Only load known versions
+            data[kernel_version] = pd.read_csv(file)
     return data
 
 def crop_pdf(input_pdf, output_pdf, crop_left=0, crop_right=0, crop_up=0, crop_down=0):
