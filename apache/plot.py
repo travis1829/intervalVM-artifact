@@ -11,7 +11,7 @@ label_size = 18
 # ytick_size = 14
 xtick_size = 14
 line_width = 1.2
-marker_size = 12
+marker_size = 8
 
 x_label_pad = -0.125
 y_label_pad = -0.12
