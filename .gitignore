@@ -20,3 +20,4 @@ microbench/results/f_mfmbench/*.csv
 microbench/results/mbench/*.csv
 microbench/results/mfmbench/*.csv
 psearchy/results/*.csv
+parsec-benchmark/results/*.csv

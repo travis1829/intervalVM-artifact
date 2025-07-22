@@ -493,6 +493,9 @@ int main(int argc, char* argv[])
     cout << "Done" << endl << flush;
   }
 
+  // BUG: rtview never exits when running with threads more than 1.
+  // Therefore, force an exit when its done.
+  _exit(0);
   return 0;
 }
 
