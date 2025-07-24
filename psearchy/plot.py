@@ -120,9 +120,9 @@ def draw(output_name, data, cpu_count=48):
     plt.savefig(output_name, format='pdf')
     print(f"Plot saved to {output_name}")
 
-    cropped_output_name = output_name.replace(".pdf", "_cropped.pdf")
-    crop_pdf(output_name, cropped_output_name, crop_left=23)  # Adjust crop_left as needed
-    print(f"Cropped plot saved to {cropped_output_name}")
+    # cropped_output_name = output_name.replace(".pdf", "_cropped.pdf")
+    # crop_pdf(output_name, cropped_output_name, crop_left=23)  # Adjust crop_left as needed
+    # print(f"Cropped plot saved to {cropped_output_name}")
 
 if __name__ == "__main__":
     # Load CPU count if provided
