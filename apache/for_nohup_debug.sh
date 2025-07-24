@@ -1,1 +1,0 @@
-sudo ./bench_debug.sh
