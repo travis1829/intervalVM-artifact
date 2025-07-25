@@ -1,0 +1,1 @@
+./update-grub-default.sh 6.8.0-interval-vm-debug
