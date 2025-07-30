@@ -1,73 +1,116 @@
-
+# IntervalVM SOSP2025 Artifact
 
 ### Installation
-Run `cd scripts && sudo ./install-all.sh` to install everything. This does the following:
-* Runs `install-packages.sh`, which installs the required packages. Note that this uses `apt-get`, and therefore, only works on ubuntu/debian. On other distros, please edit `install-packages.sh` to use your own package manager.
-* Runs `install-kernels.sh`, which installs the Linux kernels needed for evaluation. This simply runs `install-linux-6.8.0.sh`, `install-linux-6.8.0-debug.sh`, `install-linux-ivm.sh`, and `install-linux-ivm-debug.sh` to install each kernel.
-* Runs `install-benchmarks.sh`, which installs the benchmarks. This simply runs `install-apache.sh`, `install-ds_benchmark.sh`, `install-lmbench.sh`, `install-metis.sh`, `install-microbench.sh`, and `install-psearchy.sh` to install each benchmark.
+Run
+```
+cd scripts && sudo ./install-all.sh
+```
+to install all required components (requires ~65 GiB of disk space). On our 48-core machine, this process takes about 1.5 hours and performs the following steps:
+* Runs `install-packages.sh` to install required packages.
+> Note: this script uses `apt-get` and is compatible only with Ubuntu/Debian. For other distributions, edit `install-packages.sh` to use the appropriate package manager.
+* Runs `install-kernels.sh` to install the Linux kernels used in our evaluation. This script sequentially executes `install-linux-6.8.0.sh`, `install-linux-6.8.0-debug.sh`, `install-linux-ivm.sh`, and `install-linux-ivm-debug.sh`.
+* Runs `install-benchmarks.sh` to install the benchmarks. This script sequentially executes `install-apache.sh`, `install-ds_benchmark.sh`, `install-lmbench.sh`, `install-metis.sh`, `install-microbench.sh`, and `install-psearchy.sh`.
 
-Alternatively, you can individually install the components you want by running each script individually.
+Alternatively, you may also install components individually by running the corresponding scripts.
 
 ### Booting
-To replicate the figures in our paper, you need to first boot with one of the newly installed kernels.
+To reproduce the figures in the paper, first boot into one of the newly installed kernels.
 
-The following are the list of kernels installed by `install-kernels.sh`.
-* `Linux 6.8.0` (baseline)
-* `Linux 6.8.0-debug` (baseline with debug tools enabled)
-* `Linux 6.8.0-interval-vm+` (our customized kernel)
-* `Linux 6.8.0-interval-vm-debug+` (our customized kernel with debug tools enabled)
+The following kernels are installed by `install-kernels.sh`:
+* `Linux 6.8.0` — baseline
+* `Linux 6.8.0-debug` — baseline with debug tools enabled
+* `Linux 6.8.0-interval-vm+` — our customized kernel
+* `Linux 6.8.0-interval-vm-debug+` — our customized kernel with debug tools enabled
 
-On ubuntu, simply run one of the `set-boot-kernel-as-*.sh` in `scripts` to change the default boot kernel, and then run `sudo reboot` to reboot with it.
-These simply update the `GRUB_DEFAULT` in `/etc/default/grub` and run `sudo update-grub`.
+On Ubuntu, simply run one of the `set-boot-kernel-as-*.sh` in `scripts` to set the default boot kernel, and then execute `sudo reboot`.
+These scripts update `GRUB_DEFAULT` in `/etc/default/grub` and run `sudo update-grub`.
 
-On other distros, please manually edit `/etc/default/grub` and add the following lines.
-* `GRUB_TIMEOUT_STYLE=menu`
-* `GRUB_TIMEOUT=10   # Gives 10 seconds to choose`
+For other distributions, edit `/etc/default/grub` manually and add:
+```
+GRUB_TIMEOUT_STYLE=menu
+GRUB_TIMEOUT=10   # Gives 10 seconds to choose
+```
 
-This will allow you to choose a kernel at boot.
+This enables selecting the desired kernel at boot.
 
 ### Running Benchmarks
-After booting with one of the new kernels, run the script corresponding to each kernel to run the benchmarks.
-* For `Linux 6.8.0` and `Linux 6.8.0-interval-vm+`, use `run-bench.sh`.
-* For `Linux 6.8.0-debug`, use `run-bench-6.8.0-debug.sh`.
-* For `Linux 6.8.0-interval-vm-debug+`, use `run-bench-interval-vm-debug+.sh`.
+After booting into one of the new kernels, run:
+```
+./run-bench.sh
+```
+This script detects the current kernel and executes the required benchmarks to produce results for the figures.
+See `run-bench.sh` for details.
 
-Alternatively, you can go to one of the benchmark directories (`apache`, `ds_benchmark`, `lmbench`, `lockstat`, `metis`, `microbench`, `psearchy`) and run `sudo python3 bench.py` to run each benchmark.
+Approximate runtime on our machine:
+* `Linux 6.8.0` and `Linux 6.8.0-interval-vm+`: 24 hours
+* `Linux 6.8.0-debug`: 12.5 hours
+* `Linux 6.8.0-interval-vm-debug+`: 9 hours
+
+Alternatively, you can run individual benchmarks by navigating to one of the benchmark directories (`apache`, `ds_benchmark`, `lmbench`, `lockstat`, `metis`, `microbench`, `psearchy`) and executing:
+```
+sudo python3 bench.py
+```
 
 ### Plotting the Results
-After running the benchmarks, run `python3 plot.py` in each benchmark directory to output the plots as pdf files.
-An exception is `lmbench`, which does not have a `plot.py` script. Instead, run `python3 compare.py` to see the results.
+After benchmarks complete, run:
+```
+python3 plot.py
+```
+in each benchmark directory to generate the plots as PDF files.
 
-### Description of Benchmarks
-The following is a short description of each benchmark and how to compare the results with the ones in the paper.
+Exception: `lmbench` does not provide a `plot.py`. Instead, run:
+```
+python3 compare.py
+```
+to view results.
+
+### Benchmark Descriptions
+Below is a summary of each benchmark, including runtime on our machine and how to compare results with the paper.
 
 #### apache
-Evaluates apache web server using wrk with two configurations: 1) single process, 2) default.
-Compare `apache.pdf` to Fig. 14a, and `results/default_results.csv` to Fig. 14b.
+* Evaluates Apache web server using wrk with two configurations: 1) single process, 2) default.
+* Run under: `Linux 6.8.0` or `Linux 6.8.0-interval-vm+`
+* Runtime: 2.5 hours
+* Compare: `apache.pdf` to Fig. 14a, and `results/default_results.csv` to Fig. 14b.
 
 #### ds_benchmark
-Evaluates each data structure (maple tree (`mp`), interval skiplist (`isl`)) for each operation type (Query, Alloc, Map).
-Compare `latency.pdf` to Fig. 11a, and `Query.pdf`, `Alloc.pdf`, `Map.pdf` to Fig. 11b.
+* Evaluates data structures: maple tree (`mp`) and interval skiplist (`isl`) across operations (Query, Alloc, Map).
+* Run under: `Linux 6.8.0`
+* Runtime: 1 hour
+* Compare `latency.pdf` to Fig. 11a, and `Query.pdf`, `Alloc.pdf`, `Map.pdf` to Fig. 11b.
 
 #### lmbench
-Runs the lmbench multiple times.
-Compare the output of `python3 compare.py` to Fig. 12.
+* Runs the lmbench suite multiple times.
+* Run under: `Linux 6.8.0` or `Linux 6.8.0-interval-vm+`
+* Runtime: 6 hours
+* Compare the output of `python3 compare.py` to Fig. 12.
 
 #### lockstat
-Evaluates apache, metis, and psearchy under `Linux 6.8.0-debug` and evaluates `wait time / total time`.
-Compare `wasted_time_graph.pdf` to Fig. 1.
+* Runs apache, metis, and psearchy while using `lock_stat` to measure `wait time / total time`.
+* Run under: `Linux 6.8.0-debug`
+* Runtime: 12.5 hours
+* Compare `wasted_time_graph.pdf` to Fig. 1.
 
 #### metis
-Evaluates metis map-reduce by running the `wrmem` benchmark with 4GiB input size.
-Compare `metis.pdf` to Fig. 14c.
+* Evaluates Metis Map-Reduce with the `wrmem` benchmark (4GiB input).
+* Run under: `Linux 6.8.0` or `Linux 6.8.0-interval-vm+`
+* Runtime: 3.5 hours
+* Compare `metis.pdf` to Fig. 14c.
 
 #### microbench
-Evaluates address space operations with microbenchmarks.
-Compare `Alloc.pdf` and `Alloc + Fault + Modify.pdf` to Fig. 13.
+* Evaluates address space operations with microbenchmarks.
+* Run under: `Linux 6.8.0` or `Linux 6.8.0-interval-vm+`
+* Runtime: 1.5 hours
+* Compare `Alloc.pdf` and `Alloc + Fault + Modify.pdf` to Fig. 13.
 
 #### psearchy
-Evaluates psearchy text indexing by indexing the `Linux 6.8.0` source tree.
-Compare `psearchy.pdf` to Fig. 14d.
+* Evaluates text indexing using Psearchy on the `Linux 6.8.0` source tree.
+* Run under: `Linux 6.8.0` or `Linux 6.8.0-interval-vm+`
+* Runtime: 5 hours
+* Compare `psearchy.pdf` to Fig. 14d.
 
 ### Uninstall
-Run `cd scripts && sudo ./uninstall-all.sh`.
+Run:
+```
+cd scripts && sudo ./uninstall-all.sh
+```

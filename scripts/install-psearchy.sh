@@ -1,3 +1,5 @@
+# about 7 minutes
+
 make -C ../psearchy
 
 cd ../psearchy

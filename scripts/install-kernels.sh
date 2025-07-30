@@ -1,3 +1,5 @@
+# about 1 hour
+
 ./install-packages.sh
 
 if [ ! -f "/boot/initrd.img-6.8.0" ]; then

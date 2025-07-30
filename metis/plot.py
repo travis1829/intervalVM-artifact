@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import sys
 import glob
+import os
 import psutil # For psutil.cpu_count()
 from PyPDF2 import PdfReader, PdfWriter
 
@@ -18,19 +19,20 @@ top_layout = 0.975
 left_layout = 0.15
 
 version_info = {
-    "RadixVM": {"label": "radixvm", "linestyle": "solid", "marker": "^", "color": "lime"},
-    "6.8.0": {"label": "linux", "linestyle": "solid", "marker": "x", "color": "red"},
-    "6.8.0-interval-vm+": {"label": "linux-ours", "linestyle": "solid", "marker": "s", "color": "blue"},
+    "RadixVM": {"label": "RadixVM", "linestyle": "solid", "marker": "^", "color": "lime"},
+    "6.8.0-interval-vm+": {"label": "LinuxOurs", "linestyle": "solid", "marker": "s", "color": "blue"},
+    "6.8.0": {"label": "Linux", "linestyle": "solid", "marker": "x", "color": "red"},
 }
 
 benchunit = 1000
 benchunittype = "G"
 
 def load_csv_files():
-    """Loads all CSV files in the current directory into a dictionary of DataFrames."""
+    """Loads all CSV files in the 'results' directory into a dictionary of DataFrames."""
     data = {}
-    for file in glob.glob("*.csv"):
-        kernel_version = file.split(".csv")[0]  # Use the filename (kernel version) as the key
+    for file in glob.glob("results/*.csv"):
+        filename = os.path.basename(file)
+        kernel_version = filename[:-4]  # strip '.csv' from the filename
         if kernel_version in version_info:      # Only load known versions
             data[kernel_version] = pd.read_csv(file)
     return data

@@ -1,3 +1,5 @@
+# about 25 minutes
+
 ./install-packages.sh
 
 if [ ! -d "/usr/local/apache2" ]; then

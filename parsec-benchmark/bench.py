@@ -81,7 +81,7 @@ def run_benchmark(cpumax, repeat):
 
 if __name__ == "__main__":
     # Set default values if arguments are not provided
-    cpumax = int(sys.argv[1]) if len(sys.argv) > 1 else psutil.cpu_count(logical=False) or 32
+    cpumax = int(sys.argv[1]) if len(sys.argv) > 1 else 48
     repeat = int(sys.argv[2]) if len(sys.argv) > 2 else 20
 
     run_benchmark(cpumax, repeat)

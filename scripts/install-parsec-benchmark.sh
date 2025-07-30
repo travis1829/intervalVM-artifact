@@ -1,3 +1,4 @@
+# about 20 minutes
 
 PARSEC="../parsec-benchmark"
 

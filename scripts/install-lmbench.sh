@@ -1,3 +1,5 @@
+# less than 1 minute
+
 cd ../lmbench/src
 make
 

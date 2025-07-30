@@ -39,7 +39,7 @@ if [ -f "$TARGET_FILE" ]; then
 fi
 
 # 2. run w/o parallelized modify
-sudo sysctl -w vm.interval_vm_ctl=480
+sudo sysctl -w vm.interval_vm_ctl=992
 sudo python3 bench.py
 find "$TARGET_DIR" -type f -name "${KERNEL_VERSION}.*" | while read -r file; do
     dir=$(dirname "$file")

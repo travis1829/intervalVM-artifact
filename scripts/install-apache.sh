@@ -1,3 +1,5 @@
+# about 7 minutes
+
 # Installs apache at the default path (/usr/local/apache2) and wrk at ../apache/wrk.
 # To uninstall, remove ../apache/wrk, ../apache/httpd-2.4.62, and /usr/local/apache2
 

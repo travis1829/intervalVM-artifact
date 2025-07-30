@@ -7,6 +7,7 @@ linux-6.8-interval_vm
 apache/httpd-2.4.62
 apache/wrk
 apache/results/*.csv
+ds_benchmark/__pycache__
 ds_benchmark/results/alloc/*.csv
 ds_benchmark/results/find/*.csv
 ds_benchmark/results/remove/*.csv

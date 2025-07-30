@@ -20,8 +20,8 @@ version_info = {
     "RadixVM": {"label": "RadixVM", "linestyle": "solid", "marker": "^", "color": "lime"},
     "6.8.0": {"label": "Linux", "linestyle": "solid", "marker": "x", "color": "red"},
     "6.8.0-interval-vm+": {"label": "LinuxOurs", "linestyle": "solid", "marker": "s", "color": "blue"},
-    "6.8.0-interval-vm-debug+_no-arena": {"label": "LinuxOurs w/o arena", "linestyle": "dotted", "marker": "+", "color": "navy"},
-    "6.8.0-interval-vm-debug+_no-percpustat": {"label": "LinuxOurs w/o percpustat", "linestyle": "dashed", "marker": "o", "color": "dodgerblue"},
+    "6.8.0-interval-vm-debug+_no_arena": {"label": "LinuxOurs w/o arena", "linestyle": "dotted", "marker": "+", "color": "navy"},
+    "6.8.0-interval-vm-debug+_no_percpu_stat": {"label": "LinuxOurs w/o percpustat", "linestyle": "dashed", "marker": "o", "color": "dodgerblue"},
 }
 
 benchmarks = ["mbench", "mfmbench", "f_mbench", "f_mfmbench"]
@@ -142,6 +142,12 @@ def draw(cpu_count=32):
         output_name = benchmark_info[benchtype]["title"] + ".pdf"
         if benchtype[0] == 'f':
             output_name = "File Backed " + output_name
+        # Don't print debug results, except for mbench, because we didn't show them in the paper.
+        # Comment the following to show debug results.
+        if benchtype != "mbench":
+            data.pop("6.8.0-interval-vm-debug+_no_arena", None)
+            data.pop("6.8.0-interval-vm-debug+_no_percpu_stat", None)
+        
         draw_one(benchtype, output_name, data, cpu_count)
 
 if __name__ == "__main__":
