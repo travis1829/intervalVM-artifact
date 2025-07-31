@@ -1,6 +1,6 @@
 # IntervalVM SOSP2025 Artifact
 
-### Installation
+## Installation
 Run
 ```
 cd scripts && sudo ./install-all.sh
@@ -13,7 +13,7 @@ to install all required components (requires ~65 GiB of disk space). On our 48-c
 
 Alternatively, you may also install components individually by running the corresponding scripts.
 
-### Booting
+## Booting
 To reproduce the figures in the paper, first boot into one of the newly installed kernels.
 
 The following kernels are installed by `install-kernels.sh`:
@@ -33,12 +33,12 @@ GRUB_TIMEOUT=10   # Gives 10 seconds to choose
 
 This enables selecting the desired kernel at boot.
 
-### Running Benchmarks
+## Running Benchmarks
 After booting into one of the new kernels, run:
 ```
 ./run-bench.sh
 ```
-This script detects the current kernel and executes the required benchmarks to produce results for the figures.
+This script automatically detects the current kernel and executes the required benchmarks to produce results for the figures.
 See `run-bench.sh` for details.
 
 Approximate runtime on our machine:
@@ -51,66 +51,99 @@ Alternatively, you can run individual benchmarks by navigating to one of the ben
 sudo python3 bench.py
 ```
 
-### Plotting the Results
+**Exception**: When booted with `Linux 6.8.0-interval-vm-debug+`, use:
+```
+sudo ./bench_debug.sh
+```
+instead of `sudo python3 bench.py`.
+Note that this script is available only in the `apache` and `microbench` directories.
+
+## Plotting the Results
 After benchmarks complete, run:
 ```
 python3 plot.py
 ```
 in each benchmark directory to generate the plots as PDF files.
 
-Exception: `lmbench` does not provide a `plot.py`. Instead, run:
+**Exception**: `lmbench` does not provide a `plot.py`. Instead, run:
 ```
 python3 compare.py
 ```
 to view results.
 
-### Benchmark Descriptions
-Below is a summary of each benchmark, including runtime on our machine and how to compare results with the paper.
+## Benchmark Descriptions
+For each benchmark, we provide:
+* a summary of its purpose,
+* the kernels under which it should be run,
+* the command to execute it,
+* the runtime on our machine, and
+* instructions for comparing the results with the figures in the paper.
+
+All benchmark results are stored in the `results` directory within each benchmark's directory.
 
 #### apache
 * Evaluates Apache web server using wrk with two configurations: 1) single process, 2) default.
-* Run under: `Linux 6.8.0` or `Linux 6.8.0-interval-vm+`
-* Runtime: 2.5 hours
+* Run under: `Linux 6.8.0`, `Linux 6.8.0-interval-vm+`, or `Linux 6.8.0-interval-vm-debug+`
+* Command:
+  - `sudo python3 bench.py` for `Linux 6.8.0` and `Linux 6.8.0-interval-vm+`
+  - `sudo ./bench_debug.sh` for `Linux 6.8.0-interval-vm-debug+`
+* Runtime: 2.5 hours for `bench.py`, 7 hours for `bench_debug.sh`
 * Compare: `apache.pdf` to Fig. 14a, and `results/default_results.csv` to Fig. 14b.
 
 #### ds_benchmark
 * Evaluates data structures: maple tree (`mp`) and interval skiplist (`isl`) across operations (Query, Alloc, Map).
 * Run under: `Linux 6.8.0`
+* Command: `sudo python3 bench.py`
 * Runtime: 1 hour
 * Compare `latency.pdf` to Fig. 11a, and `Query.pdf`, `Alloc.pdf`, `Map.pdf` to Fig. 11b.
 
 #### lmbench
 * Runs the lmbench suite multiple times.
 * Run under: `Linux 6.8.0` or `Linux 6.8.0-interval-vm+`
+* Command: `sudo python3 bench.py`
 * Runtime: 6 hours
 * Compare the output of `python3 compare.py` to Fig. 12.
 
 #### lockstat
 * Runs apache, metis, and psearchy while using `lock_stat` to measure `wait time / total time`.
 * Run under: `Linux 6.8.0-debug`
+* Command: `sudo python3 bench.py`
 * Runtime: 12.5 hours
 * Compare `wasted_time_graph.pdf` to Fig. 1.
 
 #### metis
 * Evaluates Metis Map-Reduce with the `wrmem` benchmark (4GiB input).
 * Run under: `Linux 6.8.0` or `Linux 6.8.0-interval-vm+`
+* Command: `sudo python3 bench.py`
 * Runtime: 3.5 hours
 * Compare `metis.pdf` to Fig. 14c.
 
 #### microbench
 * Evaluates address space operations with microbenchmarks.
-* Run under: `Linux 6.8.0` or `Linux 6.8.0-interval-vm+`
-* Runtime: 1.5 hours
+* Run under: `Linux 6.8.0`, `Linux 6.8.0-interval-vm+`, or `Linux 6.8.0-interval-vm-debug+`
+* Command:
+  - `sudo python3 bench.py` for `Linux 6.8.0` and `Linux 6.8.0-interval-vm+`
+  - `sudo ./bench_debug.sh` for `Linux 6.8.0-interval-vm-debug+`
+* Runtime: 1.5 hours for `bench.py`, 2 hours for `bench_debug.sh`
 * Compare `Alloc.pdf` and `Alloc + Fault + Modify.pdf` to Fig. 13.
 
 #### psearchy
 * Evaluates text indexing using Psearchy on the `Linux 6.8.0` source tree.
 * Run under: `Linux 6.8.0` or `Linux 6.8.0-interval-vm+`
+* Command: `sudo python3 bench.py`
 * Runtime: 5 hours
 * Compare `psearchy.pdf` to Fig. 14d.
 
-### Uninstall
+## Uninstall
 Run:
 ```
 cd scripts && sudo ./uninstall-all.sh
 ```
+
+## Miscellaneous
+Our artifact was evaluated in the following environment:
+
+* **Motherboard:** Supermicro X11DPG-OT-CPU
+* **CPU:** Dual-socket Intel Xeon Gold 6248R @ 3.0 GHz (48 cores)
+* **Memory:** 384 GiB
+* **OS:** Ubuntu 24.04.1 LTS
