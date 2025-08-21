@@ -46,7 +46,7 @@ Approximate runtime on our machine:
 * `Linux 6.8.0-debug`: 12.5 hours
 * `Linux 6.8.0-interval-vm-debug+`: 9 hours
 
-Alternatively, you can run individual benchmarks by navigating to one of the benchmark directories (`apache`, `ds_benchmark`, `lmbench`, `lockstat`, `metis`, `microbench`, `psearchy`) and executing:
+Alternatively, you can run individual benchmarks by navigating to one of the benchmark directories (`apache`, `ds_benchmark`, `lmbench`, `lockstat`, `metis`, `microbench`, `psearchy`, `parsec-benchmark`) and executing:
 ```
 sudo python3 bench.py
 ```
@@ -88,21 +88,21 @@ All benchmark results are stored in the `results` directory within each benchmar
   - `sudo python3 bench.py` for `Linux 6.8.0` and `Linux 6.8.0-interval-vm+`
   - `sudo ./bench_debug.sh` for `Linux 6.8.0-interval-vm-debug+`
 * Runtime: 2.5 hours for `bench.py`, 7 hours for `bench_debug.sh`
-* Compare: `apache.pdf` to Fig. 14a, and `results/default_results.csv` to Fig. 14b.
+* Compare: `apache.pdf` to Fig. 15a, and `results/default_results.csv` to Fig. 15b.
 
 #### ds_benchmark
 * Evaluates data structures: maple tree (`mp`) and interval skiplist (`isl`) across operations (Query, Alloc, Map).
 * Run under: `Linux 6.8.0`
 * Command: `sudo python3 bench.py`
 * Runtime: 1 hour
-* Compare `latency.pdf` to Fig. 11a, and `Query.pdf`, `Alloc.pdf`, `Map.pdf` to Fig. 11b.
+* Compare `latency.pdf` to Fig. 12a, and `Query.pdf`, `Alloc.pdf`, `Map.pdf` to Fig. 12b.
 
 #### lmbench
 * Runs the lmbench suite multiple times.
 * Run under: `Linux 6.8.0` or `Linux 6.8.0-interval-vm+`
 * Command: `sudo python3 bench.py`
 * Runtime: 6 hours
-* Compare the output of `python3 compare.py` to Fig. 12.
+* Compare the output of `python3 compare.py` to Fig. 13.
 
 #### lockstat
 * Runs apache, metis, and psearchy while using `lock_stat` to measure `wait time / total time`.
@@ -116,7 +116,7 @@ All benchmark results are stored in the `results` directory within each benchmar
 * Run under: `Linux 6.8.0` or `Linux 6.8.0-interval-vm+`
 * Command: `sudo python3 bench.py`
 * Runtime: 3.5 hours
-* Compare `metis.pdf` to Fig. 14c.
+* Compare `metis.pdf` to Fig. 15c.
 
 #### microbench
 * Evaluates address space operations with microbenchmarks.
@@ -125,14 +125,21 @@ All benchmark results are stored in the `results` directory within each benchmar
   - `sudo python3 bench.py` for `Linux 6.8.0` and `Linux 6.8.0-interval-vm+`
   - `sudo ./bench_debug.sh` for `Linux 6.8.0-interval-vm-debug+`
 * Runtime: 1.5 hours for `bench.py`, 2 hours for `bench_debug.sh`
-* Compare `Alloc.pdf` and `Alloc + Fault + Modify.pdf` to Fig. 13.
+* Compare `Alloc.pdf` and `Alloc + Fault + Modify.pdf` to Fig. 14.
 
 #### psearchy
 * Evaluates text indexing using Psearchy on the `Linux 6.8.0` source tree.
 * Run under: `Linux 6.8.0` or `Linux 6.8.0-interval-vm+`
 * Command: `sudo python3 bench.py`
 * Runtime: 5 hours
-* Compare `psearchy.pdf` to Fig. 14d.
+* Compare `psearchy.pdf` to Fig. 15d.
+
+#### parsec-benchmark
+* Evaluates the overall performance of various multithreaded applications.
+* Run under: `Linux 6.8.0` or `Linux 6.8.0-interval-vm+`
+* Command: `sudo python3 bench.py`
+* Runtime: 4 hours
+* Compare `parsec.pdf` to Fig. 16.
 
 ## Uninstall
 Run:

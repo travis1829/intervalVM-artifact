@@ -8,13 +8,13 @@ if [ "$KERNEL_VERSION" != "6.8.0" ] && [ "$KERNEL_VERSION" != "6.8.0-debug" ] &&
 fi
 
 if [ "$KERNEL_VERSION" = "6.8.0" ]; then
-  for dir in ds_benchmark apache lmbench metis microbench psearchy; do
+  for dir in ds_benchmark apache lmbench metis microbench psearchy parsec-benchmark; do
     (cd "$dir" && sudo python3 bench.py)
   done
 fi
 
 if [ "$KERNEL_VERSION" = "6.8.0-interval-vm+" ]; then
-  for dir in apache lmbench metis microbench psearchy; do
+  for dir in apache lmbench metis microbench psearchy parsec-benchmark; do
     (cd "$dir" && sudo python3 bench.py)
   done
 fi

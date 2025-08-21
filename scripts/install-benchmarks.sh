@@ -10,3 +10,4 @@ fi
 ./install-metis.sh
 ./install-microbench.sh
 ./install-psearchy.sh
+./install-parsec-benchmark.sh
