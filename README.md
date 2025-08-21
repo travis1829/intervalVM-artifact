@@ -147,3 +147,8 @@ Our artifact was evaluated in the following environment:
 * **CPU:** Dual-socket Intel Xeon Gold 6248R @ 3.0 GHz (48 cores)
 * **Memory:** 384 GiB
 * **OS:** Ubuntu 24.04.1 LTS
+
+## License
+This artifact is distributed under GPL-2.0, except where otherwise noted.
+Some benchmarks are derived from prior benchmarks, which retain their original licenses.
+Where applicable, those licenses are included in the artifact.
