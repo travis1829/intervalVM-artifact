@@ -14,7 +14,7 @@ to install all required components (requires ~65 GiB of disk space). On our 48-c
 * Runs `install-packages.sh` to install required packages.
 > Note: this script uses `apt-get` and is compatible only with Ubuntu/Debian. For other distributions, edit `install-packages.sh` to use the appropriate package manager.
 * Runs `install-kernels.sh` to install the Linux kernels used in our evaluation. This script sequentially executes `install-linux-6.8.0.sh`, `install-linux-6.8.0-debug.sh`, `install-linux-ivm.sh`, and `install-linux-ivm-debug.sh`.
-* Runs `install-benchmarks.sh` to install the benchmarks. This script sequentially executes `install-apache.sh`, `install-ds_benchmark.sh`, `install-lmbench.sh`, `install-metis.sh`, `install-microbench.sh`, and `install-psearchy.sh`.
+* Runs `install-benchmarks.sh` to install the benchmarks. This script sequentially executes `install-apache.sh`, `install-ds_benchmark.sh`, `install-leveldb.sh`, `install-lmbench.sh`, `install-metis.sh`, `install-microbench.sh`, `install-psearchy.sh`, and `install-parsec-benchmark.sh`.
 
 Alternatively, you may also install components individually by running the corresponding scripts.
 
@@ -47,11 +47,12 @@ This script automatically detects the current kernel and executes the required b
 See `run-bench.sh` for details.
 
 Approximate runtime on our machine:
-* `Linux 6.8.0` and `Linux 6.8.0-interval-vm+`: 24 hours
-* `Linux 6.8.0-debug`: 12.5 hours
+* `Linux 6.8.0`: 48 hours
+* `Linux 6.8.0-interval-vm+`: 24 hours
+* `Linux 6.8.0-debug`: 36 hours
 * `Linux 6.8.0-interval-vm-debug+`: 9 hours
 
-Alternatively, you can run individual benchmarks by navigating to one of the benchmark directories (`apache`, `ds_benchmark`, `lmbench`, `lockstat`, `metis`, `microbench`, `psearchy`, `parsec-benchmark`) and executing:
+Alternatively, you can run individual benchmarks by navigating to one of the benchmark directories (`apache`, `ds_benchmark`, `leveldb`, `lmbench`, `lockstat`, `metis`, `microbench`, `psearchy`, `parsec-benchmark`) and executing:
 ```
 sudo python3 bench.py
 ```
@@ -93,7 +94,7 @@ All benchmark results are stored in the `results` directory within each benchmar
   - `sudo python3 bench.py` for `Linux 6.8.0` and `Linux 6.8.0-interval-vm+`
   - `sudo ./bench_debug.sh` for `Linux 6.8.0-interval-vm-debug+`
 * Runtime: 2.5 hours for `bench.py`, 7 hours for `bench_debug.sh`
-* Compare: `apache.pdf` to Fig. 15a, and `results/default_results.csv` to Fig. 15b.
+* Compare: `apache.pdf` to Fig. 15a, and `results/default_results.csv` to Fig. 16.
 
 #### ds_benchmark
 * Evaluates data structures: maple tree (`mp`) and interval skiplist (`isl`) across operations (Query, Alloc, Map).
@@ -101,6 +102,13 @@ All benchmark results are stored in the `results` directory within each benchmar
 * Command: `sudo python3 bench.py`
 * Runtime: 1 hour
 * Compare `latency.pdf` to Fig. 12a, and `Query.pdf`, `Alloc.pdf`, `Map.pdf` to Fig. 12b.
+
+#### leveldb
+* Evaluates LevelDB using `db_bench` with the `readrandom` benchmark.
+* Run under: `Linux 6.8.0` or `Linux 6.8.0-interval-vm+`
+* Command: `sudo python3 bench.py`
+* Runtime: 24 hours for `Linux 6.8.0`, 2 hours for `Linux 6.8.0-interval-vm+`
+* Compare `leveldb.pdf` to Fig. 15b.
 
 #### lmbench
 * Runs the lmbench suite multiple times.
@@ -110,10 +118,10 @@ All benchmark results are stored in the `results` directory within each benchmar
 * Compare the output of `python3 compare.py` to Fig. 13.
 
 #### lockstat
-* Runs apache, metis, and psearchy while using `lock_stat` to measure `wait time / total time`.
+* Runs apache, metis, psearchy, and leveldb while using `lock_stat` to measure `wait time / total time`.
 * Run under: `Linux 6.8.0-debug`
 * Command: `sudo python3 bench.py`
-* Runtime: 12.5 hours
+* Runtime: 24 hours
 * Compare `wasted_time_graph.pdf` to Fig. 1.
 
 #### metis

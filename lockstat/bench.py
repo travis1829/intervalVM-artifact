@@ -8,6 +8,7 @@ import os
 APACHE = ("apache", "cd ../apache && sudo CPUS={} ./run_single_process.sh")
 METIS_WRMEM = ("metis", "../metis/obj/app/wrmem -s 4096 -p {}")
 PSEARCHY_MKDB = ("psearchy", "cd ../psearchy && sudo CPUS={} ./run.sh")
+LEVELDB = ("leveldb", "cd ../leveldb && ./build/db_bench --db=./build/testdb_2M_4K --benchmarks=readrandom --num=2000000 --value_size=4096 --use_existing_db=1 --threads={}")
 
 def read_lock_stat(verbose = False):
     mmap_lock_w = -1
@@ -133,5 +134,6 @@ if __name__ == "__main__":
     cpumax = int(sys.argv[1]) if len(sys.argv) > 1 else os.cpu_count() or 64
     repeat = int(sys.argv[2]) if len(sys.argv) > 2 else 20
 
-    for cmd in [APACHE, METIS_WRMEM, PSEARCHY_MKDB]:
-        run(cmd[0], cmd[1], cpumax, repeat)
+    for cmd in [APACHE, METIS_WRMEM, PSEARCHY_MKDB, LEVELDB]:
+        # TODO: Should repeat 20 for LevelDB too, but 20 takes extremely long on Linux 6.8.0.
+        run(cmd[0], cmd[1], cpumax, repeat if cmd != LEVELDB else 1)
