@@ -618,7 +618,7 @@ class Benchmark {
       } else if (name == Slice("readhot")) {
         method = &Benchmark::ReadHot;
       } else if (name == Slice("readrandomsmall")) {
-        reads_ /= 1000;
+        reads_ /= 10;
         method = &Benchmark::ReadRandom;
       } else if (name == Slice("deleteseq")) {
         method = &Benchmark::DeleteSeq;
