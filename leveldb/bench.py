@@ -5,12 +5,8 @@ import re
 import statistics
 import os
 
-CMD_TEMPLATE = "./build/db_bench --db=./build/testdb_2M_4K --benchmarks=readrandom --num=2000000 --value_size=4096 --use_existing_db=1 --threads={}"
-
-# The following is much faster but not accurate.
-# Update benchmarks/db_bench.cc by changing line 621 to `reads_ /= 10;` and then install again to make it more accurate.
-#
-# CMD_TEMPLATE = "./build/db_bench --db=./build/testdb_2M_4K --benchmarks=readrandomsmall --num=2000000 --value_size=4096 --use_existing_db=1 --threads={}"
+# CMD_TEMPLATE = "./build/db_bench --db=./build/testdb_2M_4K --benchmarks=readrandom --num=2000000 --value_size=4096 --use_existing_db=1 --threads={}"
+CMD_TEMPLATE = "./build/db_bench --db=./build/testdb_2M_4K --benchmarks=readrandomsmall --num=2000000 --value_size=4096 --use_existing_db=1 --threads={}"
 
 
 def run_benchmark(cpumax, repeat):
@@ -62,6 +58,6 @@ def run_benchmark(cpumax, repeat):
 
 if __name__ == "__main__":
     cpumax = int(sys.argv[1]) if len(sys.argv) > 1 else os.cpu_count() or 64
-    repeat = int(sys.argv[2]) if len(sys.argv) > 2 else 1 # TODO: Should use 20, but 20 takes extremely long on Linux 6.8.0.
+    repeat = int(sys.argv[2]) if len(sys.argv) > 2 else 5 # TODO: Should use 20, but 20 takes extremely long on Linux 6.8.0.
     
     run_benchmark(cpumax, repeat)

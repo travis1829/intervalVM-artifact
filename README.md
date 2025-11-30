@@ -47,9 +47,9 @@ This script automatically detects the current kernel and executes the required b
 See `run-bench.sh` for details.
 
 Approximate runtime on our machine:
-* `Linux 6.8.0`: 48 hours
+* `Linux 6.8.0`: 30 hours
 * `Linux 6.8.0-interval-vm+`: 24 hours
-* `Linux 6.8.0-debug`: 36 hours
+* `Linux 6.8.0-debug`: 19 hours
 * `Linux 6.8.0-interval-vm-debug+`: 9 hours
 
 Alternatively, you can run individual benchmarks by navigating to one of the benchmark directories (`apache`, `ds_benchmark`, `leveldb`, `lmbench`, `lockstat`, `metis`, `microbench`, `psearchy`, `parsec-benchmark`) and executing:
@@ -107,7 +107,7 @@ All benchmark results are stored in the `results` directory within each benchmar
 * Evaluates LevelDB using `db_bench` with the `readrandom` benchmark.
 * Run under: `Linux 6.8.0` or `Linux 6.8.0-interval-vm+`
 * Command: `sudo python3 bench.py`
-* Runtime: 24 hours for `Linux 6.8.0`, 2 hours for `Linux 6.8.0-interval-vm+`
+* Runtime: 6.5 hours for `Linux 6.8.0`, 1 hour for `Linux 6.8.0-interval-vm+`
 * Compare `leveldb.pdf` to Fig. 15b.
 
 #### lmbench
